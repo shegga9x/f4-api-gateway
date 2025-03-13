@@ -1,0 +1,32 @@
+{
+  "generator-jhipster": {
+    "applicationType": "gateway",
+    "authenticationType": "oauth2",
+    "baseName": "apiGateway",
+    "buildTool": "maven",
+    "cacheProvider": null,
+    "creationTimestamp": 1741870081088,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "enableHibernateCache": null,
+    "enableSwaggerCodegen": true,
+    "enableTranslation": true,
+    "entities": [],
+    "feignClient": null,
+    "jhipsterVersion": "8.9.0",
+    "jwtSecretKey": "N2UyZmNlOTY3NWNjODA3ODY5ZmE2M2I1MTBlNzg4MWNlM2VmZjUxNjkzZDgzMzE3MTljMDYxM2IzYWYzZjdkYTk0NzBlODhlYWYzMGVlOTk4NTM0YjRhOWY3NDM2YjlkYzJkNGMxNzBmMGExZWFiNWI4MzZiZjg4ZTc2MzFkMTY=",
+    "languages": ["en", "vi"],
+    "messageBroker": "kafka",
+    "nativeLanguage": "en",
+    "packageName": "com.mycompany.myapp",
+    "prodDatabaseType": "mysql",
+    "reactive": true,
+    "searchEngine": "elasticsearch",
+    "serverPort": 8080,
+    "serviceDiscoveryType": "consul",
+    "skipClient": true,
+    "skipUserManagement": true,
+    "syncUserWithIdp": true,
+    "testFrameworks": ["gatling"]
+  }
+}
