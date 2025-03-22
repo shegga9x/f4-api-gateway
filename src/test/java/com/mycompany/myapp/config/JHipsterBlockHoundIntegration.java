@@ -10,7 +10,6 @@ public class JHipsterBlockHoundIntegration implements BlockHoundIntegration {
         builder.allowBlockingCallsInside("org.springframework.validation.beanvalidation.SpringValidatorAdapter", "validate");
         builder.allowBlockingCallsInside("com.mycompany.myapp.service.MailService", "sendEmailFromTemplate");
         builder.allowBlockingCallsInside("com.mycompany.myapp.security.DomainUserDetailsService", "createSpringSecurityUser");
-        builder.allowBlockingCallsInside("org.elasticsearch.client.indices.CreateIndexRequest", "settings");
         builder.allowBlockingCallsInside("org.springframework.web.reactive.result.method.InvocableHandlerMethod", "invoke");
         builder.allowBlockingCallsInside("org.springdoc.core.service.OpenAPIService", "build");
         builder.allowBlockingCallsInside("org.springdoc.core.service.AbstractRequestService", "build");

@@ -6,7 +6,6 @@ import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.config.Constants;
 import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.UserRepository;
-import com.mycompany.myapp.repository.search.UserSearchRepository;
 import com.mycompany.myapp.security.AuthoritiesConstants;
 import com.mycompany.myapp.service.dto.AdminUserDTO;
 import java.util.Collection;
@@ -23,7 +22,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 
 /**
  * Integration tests for {@link UserService}.
@@ -48,14 +46,6 @@ class UserServiceIT {
 
     @Autowired
     private UserService userService;
-
-    /**
-     * This repository is mocked in the com.mycompany.myapp.repository.search test package.
-     *
-     * @see com.mycompany.myapp.repository.search.UserSearchRepositoryMockConfiguration
-     */
-    @MockitoSpyBean
-    private UserSearchRepository spiedUserSearchRepository;
 
     private User user;
 

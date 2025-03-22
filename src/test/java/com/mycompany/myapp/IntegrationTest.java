@@ -1,7 +1,6 @@
 package com.mycompany.myapp;
 
 import com.mycompany.myapp.config.AsyncSyncConfiguration;
-import com.mycompany.myapp.config.EmbeddedElasticsearch;
 import com.mycompany.myapp.config.EmbeddedKafka;
 import com.mycompany.myapp.config.EmbeddedSQL;
 import com.mycompany.myapp.config.JacksonConfiguration;
@@ -20,7 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(
     classes = { ApiGatewayApp.class, JacksonConfiguration.class, AsyncSyncConfiguration.class, TestSecurityConfiguration.class }
 )
-@EmbeddedElasticsearch
 @EmbeddedSQL
 @EmbeddedKafka
 public @interface IntegrationTest {

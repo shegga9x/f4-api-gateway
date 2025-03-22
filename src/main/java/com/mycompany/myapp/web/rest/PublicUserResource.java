@@ -1,10 +1,8 @@
 package com.mycompany.myapp.web.rest;
 
-import com.mycompany.myapp.repository.search.UserSearchRepository;
 import com.mycompany.myapp.service.UserService;
 import com.mycompany.myapp.service.dto.UserDTO;
 import java.util.ArrayList;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageImpl;
@@ -24,11 +22,9 @@ public class PublicUserResource {
     private static final Logger LOG = LoggerFactory.getLogger(PublicUserResource.class);
 
     private final UserService userService;
-    private final UserSearchRepository userSearchRepository;
 
-    public PublicUserResource(UserSearchRepository userSearchRepository, UserService userService) {
+    public PublicUserResource(UserService userService) {
         this.userService = userService;
-        this.userSearchRepository = userSearchRepository;
     }
 
     /**
@@ -55,16 +51,5 @@ public class PublicUserResource {
                 )
             )
             .map(headers -> ResponseEntity.ok().headers(headers).body(userService.getAllPublicUsers(pageable)));
-    }
-
-    /**
-     * {@code SEARCH /users/_search/:query} : search for the User corresponding to the query.
-     *
-     * @param query the query to search.
-     * @return the result of the search.
-     */
-    @GetMapping("/users/_search/{query}")
-    public Mono<List<UserDTO>> search(@PathVariable("query") String query) {
-        return userSearchRepository.search(query).map(UserDTO::new).collectList();
     }
 }

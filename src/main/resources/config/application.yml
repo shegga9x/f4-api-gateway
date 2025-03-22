@@ -133,6 +133,11 @@ spring:
     function:
       definition: kafkaConsumer;kafkaProducer
     stream:
+      kafka:
+        binder:
+          replicationFactor: 1
+          auto-create-topics: true
+          brokers: localhost:9092
       bindings:
         binding-out-0:
           content-type: text/plain
@@ -172,6 +177,9 @@ spring:
   security:
     oauth2:
       client:
+        provider:
+          oidc:
+            issuer-uri: http://localhost:9080/realms/jhipster
         registration:
           oidc:
             client-id: web_app

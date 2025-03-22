@@ -1,3 +1,0 @@
-[submodule "backend/api-gateway"]
-	path = backend/api-gateway
-	url = https://github.com/shegga9x/f4-api-gateway
