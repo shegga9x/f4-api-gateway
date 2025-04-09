@@ -202,11 +202,6 @@ spring:
     ansi:
       console-available: true
 
-server:
-  servlet:
-    session:
-      cookie:
-        http-only: true
 
 springdoc:
   show-actuator: true

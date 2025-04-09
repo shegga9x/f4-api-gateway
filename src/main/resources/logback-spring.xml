@@ -71,6 +71,12 @@
     <logger name="LiquibaseSchemaResolver" level="INFO"/>
     <logger name="org.apache.kafka" level="INFO"/>
     <logger name="org.apache.kafka" level="WARN"/>
+    <!-- Suppress CSRF cookie warnings -->
+    <logger name="org.springframework.security.web.server.csrf" level="ERROR"/>
+    <logger name="org.springframework.security.web.csrf" level="ERROR"/>
+    <!-- Suppress Undertow request/cookie warnings -->
+    <logger name="io.undertow.request" level="ERROR"/>
+    <logger name="io.undertow.servlet" level="ERROR"/>
     <!-- jhipster-needle-logback-add-log - JHipster will add a new log with level -->
 
     <springProperty name="log.level" source="logging.level.root" defaultValue="INFO" />
