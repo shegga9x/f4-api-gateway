@@ -22,7 +22,7 @@ spring:
         service-name: remote-apigateway
         prefer-ip-address: true
         ip-address: appf4.io.vn
-        port: 8083
+        port: 8800
         acl-token: ${CONSUL_HTTP_TOKEN:}
       config:
         enabled: true
@@ -123,7 +123,7 @@ ssh:
     enabled: true  # Set to true to enable SSH port forwarding
   remote:
     host: 68.183.189.152
-    port: 8083
+    port: 8880
   local:
     port: 8080
   user: root

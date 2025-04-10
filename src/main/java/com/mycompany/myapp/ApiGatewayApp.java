@@ -138,6 +138,7 @@ public class ApiGatewayApp {
      *
      * @param args the command line arguments.
      */
+
     public static void main(String[] args) {
         // Initial Spring setup
         SpringApplication app = new SpringApplication(ApiGatewayApp.class);
@@ -147,22 +148,22 @@ public class ApiGatewayApp {
         app.setAdditionalProfiles("dev");
         System.setProperty("spring.config.additional-location", "classpath:/config/consul-config-dev.yml");
 
-        // Read SSH tunnel configuration from system properties or environment variables
-        // Default values are provided as fallbacks
-        String remoteHost = System.getProperty("ssh.remote.host",
-                System.getenv().getOrDefault("SSH_REMOTE_HOST", "68.183.189.152"));
-        int remotePort = Integer.parseInt(System.getProperty("ssh.remote.port",
-                System.getenv().getOrDefault("SSH_REMOTE_PORT", "8083")));
-        int localPort = Integer.parseInt(System.getProperty("ssh.local.port",
-                System.getenv().getOrDefault("SSH_LOCAL_PORT", "8080")));
-        String user = System.getProperty("ssh.user",
-                System.getenv().getOrDefault("SSH_USER", "root"));
-        boolean enableSshForwarding = Boolean.parseBoolean(System.getProperty("ssh.forwarding.enabled",
-                System.getenv().getOrDefault("SSH_FORWARDING_ENABLED", "true")));
+        // Now start the application with all the configuration from YML
+        Environment env = app.run(args).getEnvironment();
 
-        // Set up SSH tunnel before starting the application if enabled
+        // After Spring environment is loaded, get the configuration values
+        String remoteHost = env.getProperty("ssh.remote.host");
+        int remotePort = Integer.parseInt(env.getProperty("ssh.remote.port"));
+        int localPort = Integer.parseInt(env.getProperty("ssh.local.port"));
+        String user = env.getProperty("ssh.user");
+        boolean enableSshForwarding = Boolean.parseBoolean(env.getProperty("ssh.forwarding.enabled"));
+
+        // Ensure consul discovery port matches SSH remote port
+        System.setProperty("spring.cloud.consul.discovery.port", String.valueOf(remotePort));
+
+        // Set up SSH tunnel after application startup if enabled
         if (enableSshForwarding) {
-            LOG.info("Establishing SSH tunnel before application startup...");
+            LOG.info("Establishing SSH tunnel after application startup...");
             setupSshPortForwarding(remoteHost, remotePort, localPort, user);
             // Give the SSH connection some time to establish
             try {
@@ -172,8 +173,6 @@ public class ApiGatewayApp {
             }
         }
 
-        // Now start the application
-        Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);
     }
 
