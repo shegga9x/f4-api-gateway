@@ -3,10 +3,19 @@
 # This configuration contains the environment variables from docker-compose
 # converted to YAML format for Spring configuration.
 # ===================================================================
-
+# SSH port forwarding configuration
+ssh:
+  forwarding:
+    enabled: true  # Set to true to enable SSH port forwarding
+  remote:
+    host: appf4.io.vn
+  user: root
+  password: ledinhde788De
+  service-name: remote-apigateway
+  mysql_database: apigateway
 spring:
   application:
-    name: RemoteApiGateway
+    name: ${ssh.service-name}
   profiles:
     active: dev,api-docs
   cloud:
@@ -19,10 +28,10 @@ spring:
         skip-verify: true
       discovery:
         enabled: true
-        service-name: remote-apigateway
+        service-name: ${ssh.service-name}
         prefer-ip-address: true
         ip-address: appf4.io.vn
-        port: 8800
+        port: ${ssh.remote.port}
         acl-token: ${CONSUL_HTTP_TOKEN:}
       config:
         enabled: true
@@ -36,11 +45,11 @@ spring:
         definition: input;output
       bindings:
         input-in-0:
-          destination: remote-apigateway-input
+          destination: ${ssh.service-name}-input
           contentType: application/json
-          group: remote-apigateway
+          group: ${ssh.service-name}
         output-out-0:
-          destination: remote-apigateway-output
+          destination: ${ssh.service-name}-output
           contentType: application/json
       kafka:
         binder:
@@ -90,9 +99,9 @@ spring:
         secure: false  # Set to true in production with HTTPS
         same-site: Lax
   r2dbc:
-    url: r2dbc:mysql://appf4.io.vn:3306/apigateway
+    url: r2dbc:mysql://appf4.io.vn:3306/${ssh.mysql_database}
   liquibase:
-    url: jdbc:mysql://appf4.io.vn:3306/apigateway?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true
+    url: jdbc:mysql://appf4.io.vn:3306/${ssh.mysql_database}?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true
   kafka:
     bootstrap-servers: appf4.io.vn:9092
     security-protocol: SSL
@@ -117,14 +126,4 @@ redis:
   server: redis://appf4.io.vn:6379
 
 
-# SSH port forwarding configuration
-ssh:
-  forwarding:
-    enabled: true  # Set to true to enable SSH port forwarding
-  remote:
-    host: 68.183.189.152
-    port: 8880
-  local:
-    port: 8080
-  user: root
 
